@@ -1,5 +1,9 @@
 package ru.netology.stats;
+
 import org.junit.jupiter.api.Test;
+
+import javax.print.DocFlavor;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StatServiceTest {
@@ -22,21 +26,39 @@ class StatServiceTest {
     }
 
     @Test
-    void totalMaximumAmount() {
-        int[] month = {8, 15, 13, 15, 17, 20, 19, 20, 7, 14, 14, 18};
+    void findMaximumMonth() {
+        int[] months = {8, 15, 13, 15, 17, 20, 19, 20, 7, 14, 14, 18};
         StatsService service = new StatsService();
-        int actual = service.findMaximum(month);
+        int actual = service.findMax(months);
+        int expected = 7;
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void findMinimumMonth() {
+        int[] months = {8, 15, 13, 15, 17, 20, 19, 20, 7, 14, 14, 18};
+        StatsService service = new StatsService();
+        int actual = service.findMin(months);
         int expected = 8;
         assertEquals(expected, actual);
     }
 
     @Test
-    void totalMinimalAmount() {
-        int[] month = {8, 15, 13, 15, 17, 20, 19, 20, 7, 14, 14, 18};
+    void findUnprofitableMonths() {
+        int[] months = {8, 15, 13, 15, 17, 20, 19, 20, 7, 14, 14, 18};
         StatsService service = new StatsService();
-        int actual = service.findMinimal(month);
-        int expected = 9;
+        int actual = service.findUnprofitableMonths(months);
+        int expected = 4;
         assertEquals(expected, actual);
+    }
 
+    @Test
+    void findProfitableMonths() {
+        int[] months = {8, 15, 13, 15, 17, 20, 19, 20, 7, 14, 14, 18};
+        StatsService service = new StatsService();
+        int actual = service.findProfitableMonths(months);
+        int expected = 5;
+        assertEquals(expected, actual);
     }
 }
+

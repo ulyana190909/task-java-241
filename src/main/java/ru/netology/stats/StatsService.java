@@ -1,5 +1,8 @@
 package ru.netology.stats;
 
+import javax.print.DocFlavor;
+import java.lang.reflect.Array;
+
 public class StatsService {
     public int findTotalAmount(int[] month) {
         int amount = 0;
@@ -17,23 +20,52 @@ public class StatsService {
         return amount / 12;
     }
 
-    public int findMaximum(int[] month) {
-        int maxNumber = month[0];
-        int amountMax = 20;
-        int a;
-        for (a = 1; a < month.length; a++) {
-            amountMax = Math.max(maxNumber, month[a]);
+    public int findMax(int[] months) {
+        int maxIndex = 0;
+        for (int i = 1; i < months.length; i++) {
+            if (months[i] >= months[maxIndex])
+                maxIndex = i;
         }
-        return maxNumber;
+        return maxIndex;
     }
 
-    public int findMinimal(int[] month) {
-        int minNumber = month[0];
-        int amountMin = 7;
-        int a;
-        for (a = 1; a < month.length; a++) {
-            amountMin = Math.min(minNumber, month[a]);
+    public int findMin(int[] months) {
+        int minIndex = 0;
+        for (int i = 1; i < months.length; i++) {
+            if (months[i] <= months[minIndex])
+                minIndex = i;
         }
-        return minNumber;
+        return minIndex;
     }
+
+
+    public int findUnprofitableMonths(int[] months) {
+        StatsService unprofitable = new StatsService();
+        unprofitable.findAverageAmount(months);
+        int averageProfit = findAverageAmount(months);
+        int monthsCounter = 0;
+        for (int i = 1; i < months.length; i++) {
+            if (months[i] < averageProfit)
+                monthsCounter = monthsCounter + 1;
+        }
+        return monthsCounter;
+
+    }
+
+    public int findProfitableMonths(int[] months) {
+        StatsService profitable = new StatsService();
+        profitable.findAverageAmount(months);
+        int averageProfit = findAverageAmount(months);
+        int monthsCounter = 0;
+        for (int i = 1; i < months.length; i++) {
+            if (months[i] > averageProfit)
+                monthsCounter = monthsCounter + 1;
+        }
+        return monthsCounter;
+    }
+
 }
+
+
+
+
